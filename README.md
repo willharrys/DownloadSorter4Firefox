@@ -21,7 +21,7 @@ Download Sorter is a Firefox extension that automatically organizes your downloa
 ## 📦 Installation
 
 ### From Firefox Add-ons Store (Recommended)
-1. Visit the [Firefox Add-ons page](https://addons.mozilla.org/firefox/addon/download-sorter/)
+1. Visit the [Firefox Add-ons page](https://addons.mozilla.org/en-GB/firefox/addon/downloadsorter4firefox/)
 2. Click "Add to Firefox"
 3. Configure your rules by clicking the extension icon
 
