@@ -1,58 +1,358 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<title>Download Sorter</title>
-<script src="dist/js/jquery-2.1.1.min.js"></script>
-<script src="dist/js/bootstrap.min.js"></script>
-<script src="options.js"></script>
-<link rel="stylesheet" href="dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="dist/css/bootstrap-theme.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Sorter Options</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            line-height: 1.5;
+            color: #333;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 8px;
+            color: #2c3e50;
+        }
+
+        .subtitle {
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #e1e8ed;
+            border-radius: 8px;
+            background: #fdfdfd;
+        }
+
+        .section:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        .section h2 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #34495e;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 8px;
+            margin-top: -5px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+
+        input[type="text"], select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        input[type="text"]:focus, select:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        }
+
+        .rule-item {
+            display: grid;
+            grid-template-columns: 2fr 2fr auto;
+            gap: 10px;
+            align-items: center;
+            padding: 15px;
+            border: 1px solid #ecf0f1;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            background: #fafafa;
+        }
+
+        .rule-item:hover {
+            background: #f0f8ff;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+
+        .btn-primary {
+            background: #3498db;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2980b9;
+        }
+
+        .btn-success {
+            background: #27ae60;
+            color: white;
+            padding: 12px 24px;
+            font-size: 16px;
+        }
+
+        .btn-success:hover {
+            background: #229954;
+        }
+
+        .btn-danger {
+            background: #e74c3c;
+            color: white;
+            padding: 6px 12px;
+        }
+
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+
+        .btn-secondary {
+            background: #95a5a6;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #7f8c8d;
+        }
+
+        .actions {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ecf0f1;
+        }
+
+        .actions .btn {
+            margin: 0 10px;
+        }
+
+        .file-type-preset {
+            display: inline-block;
+            margin: 2px;
+            padding: 4px 8px;
+            background: #e8f4fd;
+            color: #2980b9;
+            border-radius: 3px;
+            font-size: 12px;
+            cursor: grab;
+            border: 1px solid #d6eaf8;
+            user-select: none;
+            transition: all 0.2s ease;
+        }
+
+        .file-type-preset:hover {
+            background: #d6eaf8;
+            transform: translateY(-1px);
+        }
+
+        .file-type-preset:active {
+            cursor: grabbing;
+        }
+
+        .file-type-preset.dragging {
+            opacity: 0.5;
+            transform: rotate(5deg);
+        }
+
+        .rule-extension {
+            position: relative;
+        }
+
+        .rule-extension.drag-over {
+            background: #e8f5e8 !important;
+            border-color: #27ae60 !important;
+            box-shadow: 0 0 0 2px rgba(39, 174, 96, 0.2) !important;
+        }
+
+        .custom-extension-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+            padding: 10px;
+            background: #f0f8ff;
+            border-radius: 4px;
+            border: 1px dashed #bcd4f0;
+        }
+
+        .custom-extension-input {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .drag-hint {
+            font-size: 12px;
+            color: #7f8c8d;
+            font-style: italic;
+            margin-top: 5px;
+        }
+
+        .preset-group {
+            margin-bottom: 10px;
+        }
+
+        .preset-group strong {
+            display: block;
+            margin-bottom: 5px;
+            color: #2c3e50;
+            font-size: 13px;
+        }
+
+        .about {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            border-left: 4px solid #3498db;
+            font-size: 13px;
+            color: #555;
+        }
+
+        .about a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        .about a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            .rule-item {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            
+            .actions .btn {
+                display: block;
+                margin: 10px 0;
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
-	<div class="col-md-6 col-md-offset-3">
-	    <h1>Download Sorter</h1>
-	    
-		<table id="rules" class="table">
-	        <thead>
-	            <tr>
-	                <th class="col-md-1">#</th>
-	                <th class="col-md-5">Extension</th>
-	                <th class="col-md-5">Folder Name</th>
-	                <th class="col-md-1">
-	                    <button type="button" id="new" class="btn btn-default btn-sm">
-	                        <span class="glyphicon glyphicon-plus"></span>
-	                    </button>
-	                </th>
-	            </tr>
-	        </thead>
-	        <tbody>
-	            <tr>
-	                <td>0</td>
-	                <td><input type="text" class="form-control input-sm extension" disabled="disabled" value="Unclassified"></td>
-	                <td><input type="text" id="defaultFolder" class="form-control input-sm foldername" value=""></td>
-	                <td>
-	                    <button type="button" class="btn btn-danger btn-sm" disabled="disabled">
-	                        <span class="glyphicon glyphicon-remove"></span>
-	                    </button>
-	                </td>
-	            </tr>
-	        </tbody>
-	    </table>
+    <div class="container">
+        <h1>Download Sorter</h1>
+        <p class="subtitle">Organize your downloads automatically into folders</p>
 
-	    <table class="hidden">
-	        <tr id="rule-template" class="hidden">
-	            <td class="number"></td>
-	            <td><input type="text" class="extension form-control input-sm extension"></td>
-	            <td><input type="text" class="foldername form-control input-sm foldername"></td>
-	            <td>
-	                <button type="button" class="remove btn btn-danger btn-sm">
-	                    <span class="glyphicon glyphicon-remove"></span>
-	                </button>
-	            </td>
-	        </tr>
-	    </table>
-	
-	</div>
+        <div class="section">
+            <h2>Default Folder</h2>
+            <div class="form-group">
+                <label for="defaultFolder">Files that don't match any rule go here:</label>
+                <input type="text" id="defaultFolder" placeholder="downloads" value="downloads">
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Sorting Rules</h2>
+            <div id="rulesContainer">
+                <!-- Rules will be added here -->
+            </div>
+            <button type="button" id="addRule" class="btn btn-primary">+ Add Rule</button>
+        </div>
+
+        <div class="section">
+            <h2>Quick File Type Presets</h2>
+            <p class="drag-hint">💡 Drag any preset below to a rule's extension field, or click to add a new rule</p>
+            
+            <div class="preset-group">
+                <strong>Documents:</strong>
+                <span class="file-type-preset" draggable="true" data-extensions="pdf">PDF</span>
+                <span class="file-type-preset" draggable="true" data-extensions="doc,docx">Word</span>
+                <span class="file-type-preset" draggable="true" data-extensions="xls,xlsx">Excel</span>
+                <span class="file-type-preset" draggable="true" data-extensions="ppt,pptx">PowerPoint</span>
+                <span class="file-type-preset" draggable="true" data-extensions="txt,rtf">Text</span>
+            </div>
+            <div class="preset-group">
+                <strong>Images:</strong>
+                <span class="file-type-preset" draggable="true" data-extensions="jpg,jpeg">JPEG</span>
+                <span class="file-type-preset" draggable="true" data-extensions="png">PNG</span>
+                <span class="file-type-preset" draggable="true" data-extensions="gif">GIF</span>
+                <span class="file-type-preset" draggable="true" data-extensions="svg">SVG</span>
+                <span class="file-type-preset" draggable="true" data-extensions="webp">WebP</span>
+            </div>
+            <div class="preset-group">
+                <strong>Media:</strong>
+                <span class="file-type-preset" draggable="true" data-extensions="mp4,avi,mkv">Video</span>
+                <span class="file-type-preset" draggable="true" data-extensions="mp3,wav,flac">Audio</span>
+            </div>
+            <div class="preset-group">
+                <strong>Archives:</strong>
+                <span class="file-type-preset" draggable="true" data-extensions="zip">ZIP</span>
+                <span class="file-type-preset" draggable="true" data-extensions="rar">RAR</span>
+                <span class="file-type-preset" draggable="true" data-extensions="7z">7Z</span>
+                <span class="file-type-preset" draggable="true" data-extensions="tar,gz">TAR/GZ</span>
+            </div>
+            <div class="preset-group">
+                <strong>Programs:</strong>
+                <span class="file-type-preset" draggable="true" data-extensions="exe">Windows EXE</span>
+                <span class="file-type-preset" draggable="true" data-extensions="msi">Windows MSI</span>
+                <span class="file-type-preset" draggable="true" data-extensions="dmg">Mac DMG</span>
+                <span class="file-type-preset" draggable="true" data-extensions="deb">Linux DEB</span>
+            </div>
+            
+            <div class="custom-extension-group">
+                <label for="customExtensionInput"><strong>Custom:</strong></label>
+                <input type="text" 
+                       id="customExtensionInput" 
+                       class="custom-extension-input" 
+                       placeholder="Type custom extensions (e.g., py,js,css)" />
+                <button type="button" id="addCustomExtension" class="btn btn-primary">Add Rule</button>
+            </div>
+        </div>
+
+        <div class="actions">
+            <button type="button" id="saveSettings" class="btn btn-success">Save Settings</button>
+            <button type="button" id="resetSettings" class="btn btn-secondary">Reset to Defaults</button>
+        </div>
+
+        <div class="section">
+            <div class="about">
+                <strong>About:</strong> Firefox Download Sorter automatically organizes your downloads into folders based on file extensions. Created for better file management. 
+                <br>Debug logging can be enabled in the background script if needed.
+            </div>
+        </div>
+    </div>
+
+    <script src="options.js"></script>
 </body>
 </html>

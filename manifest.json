@@ -1,27 +1,40 @@
 {
-   "background": {
-      "persistent": false,
-      "scripts": [ "bg.js" ]
-   },
-   "content_security_policy": "script-src 'self' chrome-extension-resource: 'unsafe-eval'; default-src 'self'",
-   "default_locale": "en",
-   "description": "__MSG_extDescription__",
-   "icons": {
-      "128": "dist/img/icon128.png",
-      "48": "dist/img/icon48.png"
-   },
-   "browser_action":{
-      "default_icon":{
-         "16": "dist/img/icon16.png"
-      },
-      "default_title":"Download sorter",
-      "default_popup":"options.html"
-   },
-   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqxNYe0rJwzHxMrnVBy0ve+FjSs9CX4mmIU5tnMINyCEzGFKDXfuT6Qz7ztL+iPnCkBMjsmfRrurmmZ2cfNXCCC7jXWFinnpQOIlMylMY6JNso8k6o4MITdmVKERUD6xhZVIe1T0ugUw/USvOySKctbXJDaiMZHayZQAdGQTCcDFhR2KsNRl+ZsQO5sLwkUkt2hYyE8J9WTCZPdHDz03yUd+/hoZzNQS3yugWE0AYKPLTxpCfGQEkN1JyWOdwWtAH/Be6tAHI47Zo0luj4zrQGkw9rVvRBcLDblkGO+7EAy9ne/KlUduU5Nzq5EvtaKmIypgfUjfbVIdB6wlcnojDoQIDAQAB",
    "manifest_version": 2,
    "name": "Download Sorter",
-   "options_page": "options.html",
-   "permissions": [ "downloads", "storage" ],
-   "update_url": "https://clients2.google.com/service/update2/crx",
-   "version": "2.0"
+   "version": "1.0",
+   "description": "Automatically organize downloads into folders by file type",
+   "author": "Will Harrys",
+   "homepage_url": "https://github.com/willharrys/download-sorter-firefox",
+   
+   "applications": {
+      "gecko": {
+         "id": "download-sorter@willharrys.github.io",
+         "strict_min_version": "60.0"
+      }
+   },
+
+   "background": {
+      "scripts": ["bg.js"],
+      "persistent": false
+   },
+
+   "browser_action": {
+      "default_title": "Download Sorter - Organize your downloads",
+      "default_popup": "options.html"
+   },
+
+   "options_ui": {
+      "page": "options.html",
+      "open_in_tab": true
+   },
+
+   "permissions": [
+      "downloads",
+      "storage",
+      "webRequest",
+      "webRequestBlocking",
+      "<all_urls>"
+   ],
+
+   "content_security_policy": "script-src 'self'; object-src 'self'; connect-src 'none'; font-src 'self'; img-src 'self'; media-src 'none'; style-src 'self' 'unsafe-inline';"
 }
