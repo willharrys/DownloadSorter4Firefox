@@ -168,8 +168,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## ⭐ Acknowledgments
 
 - Built with ❤️ for the Firefox community
-- Uses the WebExtensions API for cross-browser compatibility
-- Thanks to all contributors and testers
 
 ---
 
