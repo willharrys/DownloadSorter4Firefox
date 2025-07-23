@@ -2,8 +2,8 @@
 
 > **Automatically organize your downloads into folders based on file types**
 
-[![Firefox Add-on](https://img.shields.io/badge/Firefox-Add--on-orange?logo=firefox)](https://addons.mozilla.org/firefox/addon/download-sorter/)
-[![Version](https://img.shields.io/badge/version-1.0-blue)](https://github.com/willharrys/download-sorter-firefox/releases)
+[![Firefox Add-on](https://img.shields.io/badge/Firefox-Add--on-orange?logo=firefox)](https://addons.mozilla.org/firefox/addon/DownloadSorter4Firefox/)
+[![Version](https://img.shields.io/badge/version-1.0-blue)](https://github.com/willharrys/DownloadSorter4Firefox/releases)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
 Download Sorter is a Firefox extension that automatically organizes your downloads into folders based on customizable file extension rules. Keep your Downloads folder clean and organized without any manual effort.
@@ -153,8 +153,8 @@ download-sorter-firefox/
 
 ### Getting Help
 - 📖 Check this README for common questions
-- 🐛 [Report bugs](https://github.com/willharrys/download-sorter-firefox/issues) on GitHub
-- 💡 [Request features](https://github.com/willharrys/download-sorter-firefox/issues) on GitHub
+- 🐛 [Report bugs](https://github.com/willharrys/DownloadSorter4Firefox/issues) on GitHub
+- 💡 [Request features](https://github.com/willharrys/DownloadSorter4Firefox/issues) on GitHub
 
 ### Known Limitations
 - Downloads initiated via "Save As" dialog cannot be automatically organized (Firefox limitation)
